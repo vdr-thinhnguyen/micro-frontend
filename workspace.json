@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "cart": "apps/cart",
+    "ui-lib": "libs/ui-lib"
+  }
+}

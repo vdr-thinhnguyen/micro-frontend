@@ -3,7 +3,86 @@
   "projects": {
     "backend": "apps/backend",
     "backend-e2e": "apps/backend-e2e",
-    "cart": "apps/cart",
-    "ui-lib": "libs/ui-lib"
+    "ui-lib": "libs/ui-lib",
+    "cart": {
+      "root": "apps/cart",
+      "sourceRoot": "apps/cart",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "root": "apps/cart",
+            "outputPath": "dist/apps/cart"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "cart:build",
+            "dev": true,
+            "customServerPath": "../../tools/next-watch-server/next-watch-server.ts"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "cart:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "executor": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "cart:build:production"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/cart"],
+          "options": {
+            "jestConfig": "apps/cart/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/cart/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "cart-e2e": {
+      "root": "apps/cart-e2e",
+      "sourceRoot": "apps/cart-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/cart-e2e/cypress.json",
+            "devServerTarget": "cart:serve",
+            "tsConfig": "apps/cart-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "cart:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/cart-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
   }
 }

@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - stagging
+      - develop
 
 jobs:
   Deploy-Preview:

@@ -1,6 +1,8 @@
 {
   "version": 2,
   "projects": {
+    "backend": "apps/backend",
+    "backend-e2e": "apps/backend-e2e",
     "cart": "apps/cart",
     "ui-lib": "libs/ui-lib"
   }

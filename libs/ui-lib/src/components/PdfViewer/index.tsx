@@ -132,7 +132,7 @@ const Resume: React.FC<IPdfViewer> = ({ url }) => {
 
   const handleScroll = () => {
     const ele = document.querySelector('.react-pdf__Document');
-    if (ele && ele.scrollTop > 150) {
+    if (ele && ele.scrollTop > 10) {
       setShowScrollToTop(true);
       return;
     } else {
@@ -142,9 +142,11 @@ const Resume: React.FC<IPdfViewer> = ({ url }) => {
 
   useEffect(() => {
     if (url) {
-      document
-        .querySelector('.react-pdf__Document')
-        ?.addEventListener('scroll', handleScroll);
+      setTimeout(() => {
+        document
+          .querySelector('.react-pdf__Document')
+          ?.addEventListener('scroll', handleScroll);
+      }, 50);
       axios
         .get(url, {
           responseType: 'arraybuffer',

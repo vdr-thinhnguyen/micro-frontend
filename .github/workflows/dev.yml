@@ -8,7 +8,7 @@ on:
       - develop
 
 jobs:
-  primary:
+  sonarScan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,18 +18,22 @@ jobs:
           node-version: 16.x
           fetch-depth: 0
 
-      # - name: Install git secret
-      #   run: |
-      #     sudo sh -c "echo 'deb https://gitsecret.jfrog.io/artifactory/git-secret-deb git-secret main' >> /etc/apt/sources.list"
-      #     wget -qO - 'https://gitsecret.jfrog.io/artifactory/api/gpg/key/public' | sudo apt-key add -
-      #     sudo apt-get update && sudo apt-get install -y git-secret
-
       - name: SonarQube Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} #
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+  cypress:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+          fetch-depth: 0
 
       - name: Install dependencies
         run: npm install
@@ -37,7 +41,9 @@ jobs:
       - name: Cypress integration tests
         uses: cypress-io/github-action@v4.1.0
         with:
-          start: npm run build:serve
-          wait-on: 'http://localhost:4200'
-          wait-on-timeout: 500
-          config: 'baseUrl=http://localhost:4200'
+          # working-directory: e2e
+          # start: npm run build:serve
+          # wait-on: 'http://localhost:4200'
+          # wait-on-timeout: 500
+          # config: 'baseUrl=http://localhost:4200'
+          command: npm run test

@@ -1,1 +1,3 @@
-export * from './lib/ui-lib';
+import PdfViewer from './components/PdfViewer';
+
+export { PdfViewer };

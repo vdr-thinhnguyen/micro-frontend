@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@micro-frontend/ui-lib": ["libs/ui-lib/src/index.ts"]
+      "@ui-lib/components": ["libs/ui-lib/src/components/index.ts"],
+      "@ui-lib/types": ["libs/ui-lib/src/types/index.ts"],
+      "@ui-lib/utils": ["libs/ui-lib/src/utils/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

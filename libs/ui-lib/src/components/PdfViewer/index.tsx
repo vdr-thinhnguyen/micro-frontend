@@ -3,8 +3,8 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import styled, { keyframes, css } from 'styled-components';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
-import { IPdfViewer } from '@ui-lib/types';
-import { Button } from '@ui-lib/components';
+import { IPdfViewer } from '../../types/index';
+import { Button } from '../index';
 import { Spin } from 'antd';
 import { ArrowUpOutlined as ArrowUp } from '@ant-design/icons';
 import axios from 'axios';
@@ -72,8 +72,13 @@ const PaginationWrapper = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 10vh;
+  height: 13vh;
   background-image: linear-gradient(#ddd, #fff);
+  padding-bottom: 1rem;
+
+  @media screen and (min-width: 768px) {
+    height: 10vh;
+  }
 `;
 
 const ScrollToTop = styled.div`
@@ -85,7 +90,7 @@ const ScrollToTop = styled.div`
   cursor: pointer;
   border-radius: 8px;
   background: rgba(0, 0, 0, 0.25);
-  display: flex;
+  display: none;
   justify-content: center;
   flex-direction: column;
   text-align: center;
@@ -93,6 +98,10 @@ const ScrollToTop = styled.div`
   span {
     font-size: 12px;
     display: block;
+  }
+
+  @media screen and (min-width: 768px) {
+    display: flex;
   }
 `;
 
